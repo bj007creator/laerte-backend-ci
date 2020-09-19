@@ -61,7 +61,8 @@ passport.use(
 passport.use(
   new FacebookStrategy.Strategy(
     {
-      callbackURL: "laerte-backend.herokuapp.com/auth/facebook/redirect",
+      callbackURL:
+        "https://laerte-backend.herokuapp.com/auth/facebook/redirect",
       clientID: String(process.env.FACEBOOK_APP_ID),
       clientSecret: String(process.env.FACEBOOK_APP_SECRET),
       profileFields: ["id", "displayName", "name", "emails"]
