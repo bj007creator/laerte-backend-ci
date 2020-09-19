@@ -41,10 +41,9 @@ passport.use(
         .first();
       if (!user) {
         const newUser = {
-          userName: profile._json.name,
+          name: profile._json.name,
           password: "sign up social ways",
-          email: profile._json.sub,
-          profile_picture: profile._json.picture
+          email: profile._json.sub
         };
         const ids = await knex("users").insert(newUser);
         const id = Number(ids[0]);
@@ -86,10 +85,9 @@ passport.use(
 
       if (!user) {
         const newUser = {
-          userName: profile._json.name,
+          name: profile._json.name,
           password: "sign up social ways",
-          email,
-          profile_picture: "default.png"
+          email
         };
         const ids = await knex("users").insert(newUser);
         const id = Number(ids[0]);
