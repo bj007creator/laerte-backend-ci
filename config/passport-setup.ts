@@ -8,10 +8,9 @@ import FacebookStrategy from "passport-facebook";
 
 type User = {
   id: number;
-  userName: string;
+  name: string;
   password: string;
   email: string;
-  profile_picture: string;
 };
 
 passport.serializeUser((user: User, done) => {
@@ -45,8 +44,9 @@ passport.use(
           password: "sign up social ways",
           email: profile._json.sub
         };
-        const ids = await knex("users").insert(newUser);
-        const id = Number(ids[0]);
+        const id = await knex("users")
+          .insert(newUser)
+          .returning("id");
 
         done(null, { ...newUser, id });
       } else {
@@ -89,8 +89,9 @@ passport.use(
           password: "sign up social ways",
           email
         };
-        const ids = await knex("users").insert(newUser);
-        const id = Number(ids[0]);
+        const id = await knex("users")
+          .insert(newUser)
+          .returning("id");
 
         done(null, { ...newUser, id });
       } else {
