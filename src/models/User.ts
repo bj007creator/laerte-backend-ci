@@ -22,7 +22,7 @@ export default class User {
     request: Request;
     response: Response;
   }) {
-    AuthServices.authenticate({ request, response });
+    return AuthServices.authenticate({ request, response });
   }
 
   static async signInSocial({
@@ -32,7 +32,7 @@ export default class User {
     request: Request;
     response: Response;
   }) {
-    AuthServices.socialAuthenticate({ request, response });
+    return AuthServices.socialAuthenticate({ request, response });
   }
 
   static async recoverUserData({

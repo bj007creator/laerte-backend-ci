@@ -54,8 +54,8 @@ export default class UsersServices {
         name
       };
 
-      let insertedIds = await knex("users").insert(user);
-      console.log(insertedIds);
+      await knex("users").insert(user);
+
       return response.json(user);
     }
     return response.status(409).send();
