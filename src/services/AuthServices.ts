@@ -68,9 +68,6 @@ export default class AuthServices {
 
     delete user.password;
 
-    return response.json({
-      user,
-      token
-    });
+    return response.redirect(`http://localhost:3000?tkn=${token}`);
   }
 }
