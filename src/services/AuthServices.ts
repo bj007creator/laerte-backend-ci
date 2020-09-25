@@ -68,6 +68,6 @@ export default class AuthServices {
 
     delete user.password;
 
-    return response.redirect(`http://localhost:3000?tkn=${token}`);
+    return response.redirect(`https://5f6dc8cab6838084b094f38e--laertesilva.netlify.app?tkn=${token}`);
   }
 }
