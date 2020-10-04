@@ -20,20 +20,45 @@ export default class UsersServices {
   async index({ request, response }: { request: Request; response: Response }) {
     const retrieveUsers = await knex("users").select("*");
     return response.json(retrieveUsers);
-
-    /*const { search } = request.query;
-        response.json( search === undefined ? 
-            this.users : 
-            this.users.filter(user => {
-                return user.toUpperCase().includes(search.toString().toUpperCase());
-        }));*/
   }
+  
   show({ request, response }: { request: Request; response: Response }) {
     const { id } = request.params;
     return this.users[Number(id)]
       ? response.json({ user: this.users[Number(id)] })
       : response.status(404).send("Not Found");
   }
+
+  static async update({ request, response } : { request : Request, response: Response }){
+    const { password, name } = request.body;
+    const { id } = request.params;
+    try{
+      if(request.userId === id){
+        await knex("users").where("id", id).update({
+          password,
+          name
+        });
+        return response.json({ name });
+      }
+      return response.status(401).send();
+    } catch {
+      return response.status(401).send();
+    }
+  }
+
+  static async destroy({ request, response } : { request : Request, response: Response }){
+    const { id } = request.params;
+    try{
+      if(request.userId === id){
+        await knex("users").where("id", id).del();
+        return response.status(200).send();
+      }
+      return response.status(401).send();
+    } catch {
+      return response.status(401).send();
+    }
+  }
+
   static async store({
     request,
     response
@@ -42,7 +67,7 @@ export default class UsersServices {
     response: Response;
   }) {
     const { email, password, name } = request.body;
-
+    
     const userExists = await knex("users")
       .where("email", email)
       .first();
@@ -51,7 +76,8 @@ export default class UsersServices {
       const user = {
         email,
         password: utils.passwordEncrypt(password),
-        name
+        name,
+        isAdmin: email === "laerte@gmail.com"
       };
 
       await knex("users").insert(user);

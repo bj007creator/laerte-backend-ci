@@ -6,12 +6,14 @@ import authMiddleware from "../middlewares/authMiddleware";
 
 const routes = Router();
 
-const usersController = new UsersController();
+routes.get("", UsersController.index);
 
-routes.get("", authMiddleware, usersController.index);
+routes.get("/:id", UsersController.show);
 
-routes.get("/:id", usersController.show);
+routes.post("", UsersController.store);
 
-routes.post("", usersController.store);
+routes.put("/:id", authMiddleware, UsersController.update);
+
+routes.delete("/:id", authMiddleware, UsersController.destroy);
 
 export default routes;

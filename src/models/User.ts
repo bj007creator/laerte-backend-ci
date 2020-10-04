@@ -1,18 +1,21 @@
 import { Request, Response } from "express";
 
 import AuthServices from "../services/AuthServices";
+import UserServices from "../services/UsersServices";
 
 export default class User {
   private name: string;
   private password: string;
   private id: number;
   private email: string;
+  private isAdmin: boolean;
 
-  constructor(name: string, password: string, id: number, email: string) {
+  constructor(name: string, password: string, id: number, email: string, isAdmin: boolean) {
     this.name = name;
     this.password = password;
     this.id = id;
     this.email = email;
+    this.isAdmin = isAdmin;
   }
 
   static async signIn({
@@ -43,6 +46,36 @@ export default class User {
     response: Response;
   }) {}
 
+  static async signUp({
+    request,
+    response
+  }: {
+    request: Request;
+    response: Response;
+  }) {
+    return UserServices.store({ request, response });
+  }
+
+  static async changeData({
+    request,
+    response
+  }: {
+    request: Request;
+    response: Response;
+  }) {
+    return UserServices.update({ request, response });
+  }
+
+  static async destroyData({
+    request,
+    response
+  }: {
+    request: Request;
+    response: Response;
+  }) {
+    return UserServices.destroy({ request, response });
+  }
+
   getName() {
     return this.name;
   }
@@ -54,5 +87,8 @@ export default class User {
   }
   getPassword() {
     return this.password;
+  }
+  getIsAdmin() {
+    return this.isAdmin;
   }
 }

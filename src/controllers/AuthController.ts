@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import User from "../models/User";
 
-export default class AuthController {
+class AuthController {
   authenticate(request: Request, response: Response) {
     User.signIn({ request, response });
   }
@@ -10,3 +10,5 @@ export default class AuthController {
     User.signInSocial({ request, response });
   }
 }
+
+export default new AuthController();
