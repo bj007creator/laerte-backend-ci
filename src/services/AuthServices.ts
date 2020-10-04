@@ -12,10 +12,10 @@ import "../../config/getEnv";
 
 type User = {
   id: number;
-  userName: string;
+  name: string;
   password: string;
   email: string;
-  profile_picture: string;
+  isAdmin: boolean;
 };
 
 export default class AuthServices {
