@@ -4,6 +4,7 @@ import "../config/passport-setup";
 import UsersRoutes from "./routes/UsersRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
 import ServiceRoutes from "./routes/ServiceRoutes";
+import SolicitationRoutes from "./routes/SolicitationRoutes";
 import cors from "cors";
 import passport from "passport";
 //import '../config/getEnv';
@@ -21,6 +22,8 @@ app.use("/users", UsersRoutes);
 app.use("/auth", AuthRoutes);
 
 app.use("/services", ServiceRoutes);
+
+app.use("/solicitations", SolicitationRoutes);
 
 app.use("/uploads", express.static(path.resolve(__dirname, "..", "uploads")));
 
