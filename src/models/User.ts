@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import AuthServices from "../services/AuthServices";
 import UserServices from "../services/UsersServices";
+import ProfileServices from './../services/ProfileServices';
 
 export default class User {
   private name: string;
@@ -45,7 +46,7 @@ export default class User {
     request: Request;
     response: Response;
   }) {
-    return UserServices.retrieveUserData({ request, response });
+    return ProfileServices.retrieveUserData({ request, response });
   }
 
   static async signUp({

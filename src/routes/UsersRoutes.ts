@@ -10,8 +10,6 @@ routes.get("", UsersController.index);
 
 routes.get("/:id", UsersController.show);
 
-routes.get("/myself", authMiddleware, UsersController.recoverUserData);
-
 routes.post("", UsersController.store);
 
 routes.put("/:id", authMiddleware, UsersController.update);

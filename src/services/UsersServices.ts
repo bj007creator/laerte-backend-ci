@@ -29,21 +29,6 @@ export default class UsersServices {
       : response.status(404).send("Not Found");
   }
 
-  static async retrieveUserData({ request, response }: { request: Request; response: Response }) {
-    try {
-      const user = await knex("users")
-      .where("id", request.userId)
-      .first();
-
-      delete user.password;
-
-      return response.json({user});
-    } catch{
-      return response.status(401).send();
-    }
-    
-  }
-
   static async update({ request, response } : { request : Request, response: Response }){
     const { password, name } = request.body;
     const { id } = request.params;
