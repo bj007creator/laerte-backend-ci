@@ -56,13 +56,13 @@ export default class SolicitationServices {
         const retrieveSolicitations = await knex("solicitations").select('*');
         return response.json(retrieveSolicitations);
       }
-      const retrieveSolicitations = await knex("solicitations")
+      const retrieveMySolicitations = await knex("solicitations")
                                           .join('users_solicitations', 'solicitations.id', '=', 'users_solicitations.solicitation_id')
                                           .where('users_solicitations.user_id', request.userId)
                                           .distinct()
                                           .select('solicitations.*');
                                           
-      return response.json(retrieveSolicitations);
+      return response.json(retrieveMySolicitations);
     } catch {
       return response.status(404).send();
     }
