@@ -21,6 +21,9 @@ class UsersController {
   destroy(request: Request, response: Response) {
     User.destroyData({ request, response });
   }
+  recoverUserData(request: Request, response: Response) {
+    User.recoverUserData({ request, response });
+  }
 }
 
 export default new UsersController();

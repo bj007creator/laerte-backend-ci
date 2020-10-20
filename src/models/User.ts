@@ -44,7 +44,9 @@ export default class User {
   }: {
     request: Request;
     response: Response;
-  }) {}
+  }) {
+    return UserServices.retrieveUserData({ request, response });
+  }
 
   static async signUp({
     request,
