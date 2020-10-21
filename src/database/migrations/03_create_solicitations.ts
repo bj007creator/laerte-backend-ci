@@ -7,6 +7,7 @@ export async function up(knex: Knex) {
     table.string("message").notNullable();
     table.integer("service_id").notNullable();
     table.string("client_name").notNullable();
+    table.integer("client_id").notNullable();
   });
 }
 export async function down(knex: Knex) {

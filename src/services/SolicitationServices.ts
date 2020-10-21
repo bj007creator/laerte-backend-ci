@@ -15,31 +15,18 @@ export default class SolicitationServices {
       state,
       service_id,
       client_name,
+      client_id
     } = request.body;
 
-    knex.transaction(function(trx) {
-      knex('solicitations').transacting(trx).insert({
-        message,
-        state,
-        service_id,
-        client_name
-      })
-      .then(function(resp) {
-          const solicitation_id = resp[0];
-          console.log(resp);
-          return trx('users_solicitations').insert({ user_id: request.userId, solicitation_id: Number(solicitation_id) });
-      })
-      .then(trx.commit)
-      .catch(trx.rollback);
-    })
-    .then(function(resp) {
-        console.log('Transaction complete.');
-        return response.json(resp);
-    })
-    .catch(function(err) {
-        console.error(err);
-        return response.status(409).send();
+    const res = await knex('solicitations').insert({
+      message,
+      state,
+      service_id,
+      client_name,
+      client_id
     });
+
+    return response.json(res);
   }
 
   static async index({
@@ -52,17 +39,11 @@ export default class SolicitationServices {
     try{
       const retrieveUser = await knex("users").where('id', request.userId).first();
 
-      if (retrieveUser.isAdmin) {
-        const retrieveSolicitations = await knex("solicitations").select('*');
-        return response.json(retrieveSolicitations);
-      }
-      const retrieveMySolicitations = await knex("solicitations")
-                                          .join('users_solicitations', 'solicitations.id', '=', 'users_solicitations.solicitation_id')
-                                          .where('users_solicitations.user_id', request.userId)
-                                          .distinct()
-                                          .select('solicitations.*');
-                                          
-      return response.json(retrieveMySolicitations);
+      const retrieveSolicitations = await knex("solicitations").select('*');
+
+      const retrieveSerializedSolicitations = retrieveSolicitations.filter( (solicitation: any) => solicitation.client_id === retrieveUser.id );
+      return response.json(retrieveSerializedSolicitations);
+      
     } catch {
       return response.status(404).send();
     }
