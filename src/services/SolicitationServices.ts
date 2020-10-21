@@ -45,7 +45,7 @@ export default class SolicitationServices {
 
       const retrieveSolicitations = await knex("solicitations").select('*');
 
-      if(retrieveUser.isAdmin){
+      if(!retrieveUser.isAdmin){
         const retrieveSerializedSolicitations = retrieveSolicitations.filter( (solicitation: any) => solicitation.client_id === retrieveUser.id );
         return response.json(retrieveSerializedSolicitations);
       }
