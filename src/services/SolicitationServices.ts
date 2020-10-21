@@ -17,16 +17,20 @@ export default class SolicitationServices {
       client_name,
       client_id
     } = request.body;
-
-    const res = await knex('solicitations').insert({
-      message,
-      state,
-      service_id,
-      client_name,
-      client_id
-    });
-
-    return response.json(res);
+    try {
+      const res = await knex('solicitations').insert({
+        message,
+        state,
+        service_id,
+        client_name,
+        client_id
+      });
+  
+      return response.json(res);
+    } catch {
+      return response.status(409).send();
+    }
+    
   }
 
   static async index({
@@ -43,7 +47,7 @@ export default class SolicitationServices {
 
       const retrieveSerializedSolicitations = retrieveSolicitations.filter( (solicitation: any) => solicitation.client_id === retrieveUser.id );
       return response.json(retrieveSerializedSolicitations);
-      
+
     } catch {
       return response.status(404).send();
     }
