@@ -26,7 +26,7 @@ export default class SolicitationServices {
       })
       .then(function(resp) {
           const solicitation_id = resp[0];
-          console.log(solicitation_id);
+          console.log(resp);
           return trx('users_solicitations').insert({ user_id: request.userId, solicitation_id: Number(solicitation_id) });
       })
       .then(trx.commit)
