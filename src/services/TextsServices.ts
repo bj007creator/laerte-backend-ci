@@ -149,4 +149,4 @@ class TextsServices {
   }
 }
 
-export default new TextsServices();
+export default TextsServices;
