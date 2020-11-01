@@ -60,7 +60,7 @@ class VideosServices {
       if(post_id){
         const retrieveVideos = await knex("videos")
                                     .join("videos_posts", "videos.id", "=", "videos_posts.video_id")
-                                    .where("videos_posts.post_id", post_id)
+                                    .where("videos_posts.post_id", String(post_id))
                                     .distinct()
                                     .select("videos.*");
         return response.json(retrieveVideos);

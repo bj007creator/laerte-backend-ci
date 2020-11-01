@@ -60,7 +60,7 @@ class ImagesServices {
       if(post_id){
         const retrieveImages = await knex("images")
                                     .join("images_posts", "images.id", "=", "images_posts.image_id")
-                                    .where("images_posts.post_id", post_id)
+                                    .where("images_posts.post_id", String(post_id))
                                     .distinct()
                                     .select("images.*");
         return response.json(retrieveImages);
