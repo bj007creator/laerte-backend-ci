@@ -31,14 +31,16 @@ class ImagesServices {
       
       const user = await knex("users").where("id", request.userId).first();
       if(user.isAdmin){
-        const insertedId = await knex("images").insert({
+        const insertedId = await knex("images")
+        .returning('id')
+        .insert({
           inserted_date,
           image_url,
           height,
           width,
           align
         });
-        return response.json(insertedId);
+        return response.json({insertedId});
       }
       return response.status(401).send();
     } catch {

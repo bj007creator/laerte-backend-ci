@@ -30,13 +30,15 @@ class TextsServices {
     try{
       const user = await knex("users").where("id", request.userId).first();
       if(user.isAdmin){
-        const insertedId = await knex("texts").insert({
+        const insertedId = await knex("texts")
+        .returning('id')
+        .insert({
           inserted_date,
           text_content,
           size,
           align
         });
-        return response.json(insertedId);
+        return response.json({insertedId});
       }
       return response.status(401).send();
     } catch {
