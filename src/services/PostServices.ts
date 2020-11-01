@@ -33,7 +33,9 @@ class PostsServices {
       const post = await knex("posts").where("title", title).first();
       const user = await knex("users").where("id", request.userId).first();
       if(!post && user.isAdmin){
-        const insertedId = await knex("posts").insert({
+        const insertedId = await knex("posts")
+        .returning('id')
+        .insert({
           likes,
           deslikes,
           image,
@@ -41,7 +43,7 @@ class PostsServices {
           title,
           inserted_date
         });
-        return response.json(insertedId);
+        return response.json({insertedId});
       }
       return response.status(401).send();
     } catch {

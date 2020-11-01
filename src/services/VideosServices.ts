@@ -31,14 +31,16 @@ class VideosServices {
     try{
       const user = await knex("users").where("id", request.userId).first();
       if(user.isAdmin){
-        const insertedId = await knex("videos").insert({
+        const insertedId = await knex("videos")
+        .returning('id')
+        .insert({
           inserted_date,
           video_url,
           height,
           width,
           align
         });
-        return response.json(insertedId);
+        return response.json({insertedId});
       }
       return response.status(401).send();
     } catch {
