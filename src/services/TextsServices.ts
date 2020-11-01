@@ -58,7 +58,7 @@ class TextsServices {
       if(post_id){
         const retrieveTexts = await knex("texts")
                                     .join("texts_posts", "texts.id", "=", "texts_posts.text_id")
-                                    .where("texts_posts.post_id", post_id)
+                                    .where("texts_posts.post_id", String(post_id))
                                     .distinct()
                                     .select("texts.*");
         return response.json(retrieveTexts);
