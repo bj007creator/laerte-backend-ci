@@ -23,7 +23,7 @@ class PostsServices {
       year: date.getUTCFullYear(),
       month: date.getUTCMonth(),
       day: date.getUTCDate(),
-      hours: date.getUTCHours(),
+      hours: date.getHours(),
       minutes: date.getUTCMinutes(),
       seconds: date.getUTCSeconds(),
       milliseconds: date.getUTCMilliseconds(),
