@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
-import VideosServices from '../services/VideosServices';
+import TextsServices from '../services/TextsServices';
 
-export default class Videos {
+export default class Texts {
 
   private inserted_date: string;
   private text_content: string;
@@ -25,7 +25,7 @@ export default class Videos {
     response: Response;
   }) {
     
-    VideosServices.index({ request, response });
+    TextsServices.index({ request, response });
   }
 
   static async storeText({
@@ -35,7 +35,7 @@ export default class Videos {
     request: Request;
     response: Response;
   }) {
-    VideosServices.store({ request, response });
+    TextsServices.store({ request, response });
   }
 
   static async deleteText({
@@ -45,7 +45,7 @@ export default class Videos {
     request: Request;
     response: Response;
   }) {
-    VideosServices.destroy({ request, response });
+    TextsServices.destroy({ request, response });
   }
 
   static async editText({
@@ -55,7 +55,7 @@ export default class Videos {
     request: Request;
     response: Response;
   }) {
-    VideosServices.update({ request, response });
+    TextsServices.update({ request, response });
   }
 
   static async addAttribute({
@@ -65,6 +65,6 @@ export default class Videos {
     request: Request;
     response: Response;
   }) {
-    VideosServices.addAttribute({ request, response });
+    TextsServices.addAttribute({ request, response });
   }
 }
