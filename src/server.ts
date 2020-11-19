@@ -10,6 +10,7 @@ import PostRoutes from "./routes/PostRoutes";
 import ImagesRoutes from "./routes/ImagesRoutes";
 import VideosRoutes from "./routes/VideosRoutes";
 import TextsRoutes from "./routes/TextsRoutes";
+import AnswerRoutes from './routes/AnswerRoutes';
 import cors from "cors";
 import passport from "passport";
 //import '../config/getEnv';
@@ -39,6 +40,8 @@ app.use("/images", ImagesRoutes);
 app.use("/videos", VideosRoutes);
 
 app.use("/texts", TextsRoutes);
+
+app.use("/answer", AnswerRoutes);
 
 app.use("/uploads", express.static(path.resolve(__dirname, "..", "uploads")));
 
