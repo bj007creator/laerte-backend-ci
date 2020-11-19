@@ -15,11 +15,13 @@ export default class OfferServices {
     try{
       const user = await knex("users").where("id", request.userId).first();
       if(user){
-        await knex("answers").insert({
+        const insertedId = await knex("answers")
+        .returning('id')
+        .insert({
           name: user.name,
           content,
         });
-        return response.json({ name: user.name, content });
+        return response.json({insertedId});
       }
       return response.status(401).send();
     } catch {
