@@ -3,13 +3,7 @@ import { Request, Response } from "express";
 import knex from "../database/connection";
 
 export default class OfferServices {
-  static async store({
-    request,
-    response
-  }: {
-    request: Request;
-    response: Response;
-  }) {
+  static async store(request: Request, response: Response) {
     const { content } = request.body;
 
     try{
@@ -29,13 +23,7 @@ export default class OfferServices {
     }
   }
 
-  static async retrieve({
-    request,
-    response
-  }: {
-    request: Request;
-    response: Response;
-  }) {
+  static async retrieve(request: Request, response: Response) {
     const {
       post_id
     } = request.query;
@@ -55,13 +43,7 @@ export default class OfferServices {
     }
   }
 
-  static async add({
-    request,
-    response
-  }: {
-    request: Request;
-    response: Response;
-  }) {
+  static async add(request: Request, response: Response) {
     const { id } = request.params;
     const { post_id } = request.body;
 
